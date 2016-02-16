@@ -147,8 +147,11 @@ def installed(name,
             pkgs_to_install.append(pkg)
             continue
 
-        installed_name_ver = '{0}@{1}'.format(pkg_name,
-                installed_pkgs[pkg_name]['version'])
+        if pkg_name not in installed_pkgs and '://' in pkg_name:
+            installed_name_ver = pkg_name
+        else:
+            installed_name_ver = '{0}@{1}'.format(pkg_name,
+                    installed_pkgs[pkg_name]['version'])
 
         # If given an explicit version check the installed version matches.
         if pkg_ver:
